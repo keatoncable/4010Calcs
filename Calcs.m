@@ -34,6 +34,16 @@ losses = 0.75; %estimated losses in percent
 power_w = (KEdot+PEdot)/losses; %power needed in watts
 power = power_w*0.00134102; % power in horsepower
 
+%% Motor Calculations
+%voltage
+%current
+%power
+%torque
+%rpm
+%curvedata
+
+%% Gearbox Design/ Calculations
+
 %% Battery Capacity
 add_cap = 20*5; %additional capacity for charging 5 phones
 capacity = (power_w*dt_hr)+add_cap; %battery capacity needed in kWh
@@ -46,6 +56,12 @@ req_Ah = capacity/v_motor; %total battery Ah needed
 parallel = ceil(req_Ah/cap_batt); %number of cells needed for desired Ah 
 series = ceil(v_motor/v_batt); %number of cells needed for desired motor voltage
 num_cells = parallel*series; %number of battery cells needed
+batt_weight = 70/1000; %battery weight in kg
+tot_weight = num_cells*batt_weight; %total battery weight
+batt_cost = 6.37; %battery cell cost in dollars
+tot_cost = num_cells*batt_cost; %total battery cost
+
+
 
 %% Speed vs Slope
 
