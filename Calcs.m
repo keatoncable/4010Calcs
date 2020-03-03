@@ -44,6 +44,7 @@ power = power_w*0.00134102; % power in horsepower
 
 %% Gearbox Design/ Calculations
 
+
 %% Battery Capacity
 add_cap = 20*5; %additional capacity for charging 5 phones
 capacity = (power_w*dt_hr)+add_cap; %battery capacity needed in kWh
@@ -60,8 +61,6 @@ batt_weight = 70/1000; %battery weight in kg
 tot_weight = num_cells*batt_weight; %total battery weight
 batt_cost = 6.37; %battery cell cost in dollars
 tot_cost = num_cells*batt_cost; %total battery cost
-
-
 
 %% Speed vs Slope
 
