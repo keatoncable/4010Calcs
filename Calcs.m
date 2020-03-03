@@ -24,8 +24,11 @@ a = vf^2/(2*dx); %acceleration needed to achieve max speed in dx meters
 t = vf/a; %time to reach max speed
 KEdot = KE/t; %power needed to achieve max speed
 PEdot = m*g*vfy; %power needed to climb slope
-dt = dh/vfy; % time it takes to climb slope at max speed
-power_w = KEdot+PEdot; %power needed in watts
+dt = dh/vfy; % time it takes to climb slope at max speed in seconds
+dt_hr = dt/3600; %time it takes to travel distance in hrs
 losses = 0.75; %estimated losses in percent
+power_w = (KEdot+PEdot)/losses; %power needed in watts
 power = power_w*0.00134102; % power in horsepower
+add_cap = 20*5; %additional capacity for charging 5 phones
+capacity = (power_w*dt_hr)+add_cap; %battery capacity needed in kWh
 
