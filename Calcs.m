@@ -29,6 +29,9 @@ dt_hr = dt/3600; %time it takes to travel distance in hrs
 
 %% Efficiency Calculations
 losses = 0.75; %estimated losses in percent
+%rolling resistance
+%motor
+%
 
 %% Power Calculations
 power_w = (KEdot+PEdot)/losses; %power needed in watts
