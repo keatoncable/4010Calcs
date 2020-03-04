@@ -4,14 +4,14 @@ close all
 
 %% Constant Initialization
 g = 9.81; %gravity in m/s^2
-m = 136; % kg, mass of cart fully loaded
+m = 113; % kg, mass of cart fully loaded
 vo_mph = 0; %initial velocity
 vf_mph = 3; % final velocity in mph
 vo = vo_mph*0.44704; %initial velocity in m/s
 vf = vf_mph*0.44704; %final velocity in m/s
-theta = 15; %max slope angle
+theta = 7.5; %max slope angle
 vfy = vf*sind(theta); %vertical component of velocity
-dist_mi = 5; %total distance cart is to travel in miles
+dist_mi = 3; %total distance cart is to travel in miles
 dist = dist_mi*1609.34; %total distance cart is to travel in meters
 dh = dist*sind(theta); %vertical component of total distance for given slope
 
@@ -55,14 +55,14 @@ capacity = (power_w*dt_hr)+add_cap; %battery capacity needed in kWh
 %% Battery Configuration
 v_motor = 24; %motor voltage
 v_batt = 3.6; %battery voltage per cell testing
-cap_batt = 4.2; %battery capacity in Ah
+cap_batt = 5.0; %battery capacity in Ah
 req_Ah = capacity/v_motor; %total battery Ah needed
 parallel = ceil(req_Ah/cap_batt); %number of cells needed for desired Ah 
 series = ceil(v_motor/v_batt); %number of cells needed for desired motor voltage
 num_cells = parallel*series; %number of battery cells needed
 batt_weight = 70/1000; %battery weight in kg
 tot_weight = num_cells*batt_weight; %total battery weight
-batt_cost = 6.37; %battery cell cost in dollars
+batt_cost = 4.15; %battery cell cost in dollars
 tot_cost = num_cells*batt_cost; %total battery cost
 
 %% Speed vs Slope
