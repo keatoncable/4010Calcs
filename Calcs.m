@@ -4,7 +4,7 @@ close all
 
 %% Constant Initialization
 g = 9.81; %gravity in m/s^2
-m = 136; % kg, mass of cart fully loaded
+m = 136; % kg, mass of cart fully loaded kl
 vo_mph = 0; %initial velocity
 vf_mph = 3; % final velocity in mph
 vo = vo_mph*0.44704; %initial velocity in m/s
