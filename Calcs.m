@@ -54,7 +54,7 @@ capacity = (power_w*dt_hr)+add_cap; %battery capacity needed in kWh
 
 %% Battery Configuration
 v_motor = 24; %motor voltage
-v_batt = 3.6; %battery voltage per cell
+v_batt = 3.6; %battery voltage per cell testing
 cap_batt = 4.2; %battery capacity in Ah
 req_Ah = capacity/v_motor; %total battery Ah needed
 parallel = ceil(req_Ah/cap_batt); %number of cells needed for desired Ah 
