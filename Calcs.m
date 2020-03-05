@@ -205,7 +205,13 @@ xlabel('Path slope [deg]')
 ylabel('Battery Capacity Needed [kWh]')
 
 %wheel diameter vs motor speed
-d = 2:0.1:
+d = 2:0.1:12; %wheel diameter in inches
+circ = 2*pi.*(d./2)
+vf_mph = 3; %max cart speed in mph
+cart_v = vf_mph*0.44704; %max cart speed in m/s
+
+
+
 %battery capacity vs battery cost
 
 

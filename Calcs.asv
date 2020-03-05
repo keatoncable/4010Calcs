@@ -205,7 +205,10 @@ xlabel('Path slope [deg]')
 ylabel('Battery Capacity Needed [kWh]')
 
 %wheel diameter vs motor speed
-d = 2:
+d = 2:0.1:12; %wheel diameter in inches
+vf_mph = 3;
+car0.44704
+
 %battery capacity vs battery cost
 
 
