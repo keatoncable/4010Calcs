@@ -101,6 +101,9 @@ power = power_w.*0.00134102; % power in horsepower
 add_cap = 20*5; %additional capacity for charging 5 phones
 capacity = (power_w*dt_hr)+add_cap; %battery capacity needed in kWh
 plot(dist_mi,capacity)
+title('Cart Distance Rating vs. Battery Capacity Needed')
+xlabel('Distance Rating [miles]')
+ylabel('Battery Capacity Needed [kWh]')
 
 
 %cart weight vs power required
