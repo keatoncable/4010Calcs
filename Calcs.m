@@ -206,11 +206,36 @@ ylabel('Battery Capacity Needed [kWh]')
 
 %wheel diameter vs motor speed
 d = 2:0.1:12; %wheel diameter in inches
-circ = 2*pi.*(d./2)
+d_m = d.*0.0254; %wheel diameter in meters
+circ = 2*pi.*(d./2); %wheel circumference in inches
+circ_m = circ.*0.0254; %wheel circumference in meters
 vf_mph = 3; %max cart speed in mph
 cart_v = vf_mph*0.44704; %max cart speed in m/s
+mot_speed = cart_v./circ_m.*60; %motor speed in RPM to reach desired vf
+figure
+plot(d,mot_speed)
+title('Wheel Diameter vs. Motor Speed To Obtain 3 MPH')
+xlabel('Wheel Diameter [in]')
+ylabel('Motor Speed [RPM]')
 
+%Wheel diamter vs gear reduction
+d = [4 6 8 10]; %wheel diameter in inches
+d_m = d.*0.0254; %wheel diameter in meters
+circ = 2*pi.*(d./2); %wheel circumference in inches
+circ_m = circ.*0.0254; %wheel circumference in meters
+vf_mph = 3; %max cart speed in mph
+cart_v = vf_mph*0.44704; %max cart speed in m/s
+mot_speed = cart_v./circ_m.*60; %motor speed in RPM to reach desired vf
+speed = 500:1:5000; %possible motor speeds in RPM
+grstore = [];
 
+for i = 1:length(mot_speed)
+    gr = speed/mot_speed(i);
+    grstore = [grstore ; gr];
+end
+
+figure
+plot(d,grstore(1,:),d,grstore(2,:),d,grstore(3,:),d,grstore(4,:))
 
 %battery capacity vs battery cost
 
