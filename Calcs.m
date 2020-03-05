@@ -286,5 +286,19 @@ xlabel('Motor Speed [RPM]')
 ylabel('Gear Reduction [ ]')
 
 %battery capacity vs battery cost
+capacity = 100:1:1500; %battery capacity needed in kWh
 
+v_motor = 24; %motor voltage
+v_batt = 3.6; %battery voltage per cell
+cap_batt = 4.2; %battery capacity in Ah
+req_Ah = capacity./v_motor; %total battery Ah needed
+parallel = ceil(req_Ah./cap_batt); %number of cells needed for desired Ah 
+curr = 14.5; % max discharge current per cell
+max_current = curr*.parallel; %max battery pack discharge
+series = ceil(v_motor/v_batt); %number of cells needed for desired motor voltage
+num_cells = parallel.*series; %number of battery cells needed
+batt_weight = 70/1000; %battery weight in kg
+tot_weight = num_cells*batt_weight; %total battery weight
+batt_cost = 4.15; %battery cell cost in dollars
+tot_cost = num_cells*batt_cost; %total battery cost
 
