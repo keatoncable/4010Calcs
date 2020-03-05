@@ -166,37 +166,37 @@ ylabel('Power Needed [W]')
 
 
 %cart weight vs battery capacity
-g = 9.81; %gravity in m/s^2
-m = 50:1:200; % kg, mass of cart fully loaded
-vo_mph = 0; %initial velocity
-vf_mph = 3; % final velocity in mph
-vo = vo_mph*0.44704; %initial velocity in m/s
-vf = vf_mph*0.44704; %final velocity in m/s
-theta = 7.5; %max slope angle
-vfy = vf*sind(theta); %vertical component of velocity
-dist_mi = 5; %total distance cart is to travel in miles
-dist = dist_mi*1609.34; %total distance cart is to travel in meters
-dh = dist*sind(theta); %vertical component of total distance for given slope
-KE = 1/2.*m.*(vf^2-vo^2); %kinetic energy of cart
-PE = m.*g.*dh; %potential energy of cart
-Wnet = KE + PE; %net work
-dx = 3; %meters
-a = vf^2/(2*dx); %acceleration needed to achieve max speed in dx meters
-t = vf/a; %time to reach max speed
-KEdot = KE/t; %power needed to achieve max speed
-PEdot = m.*g*vfy; %power needed to climb slope
-dt = dh./vfy; % time it takes to climb slope at max speed in seconds
-dt_hr = dt./3600; %time it takes to travel distance in hrs
-losses = 0.75; %estimated losses in percent
-power_w = (KEdot+PEdot)./losses; %power needed in watts
-power = power_w.*0.00134102; % power in horsepower
-add_cap = 20*5; %additional capacity for charging 5 phones
-capacity = (power_w.*dt_hr)+add_cap; %battery capacity needed in kWh
-figure
-plot(m,capacity)
-title('Total Cart Mass vs. Battery Capacity Needed')
-xlabel('Total Cart Mass [kg]')
-ylabel('Battery Capacity Needed [kWh]')
+% g = 9.81; %gravity in m/s^2
+% m = 50:1:200; % kg, mass of cart fully loaded
+% vo_mph = 0; %initial velocity
+% vf_mph = 3; % final velocity in mph
+% vo = vo_mph*0.44704; %initial velocity in m/s
+% vf = vf_mph*0.44704; %final velocity in m/s
+% theta = 7.5; %max slope angle
+% vfy = vf*sind(theta); %vertical component of velocity
+% dist_mi = 5; %total distance cart is to travel in miles
+% dist = dist_mi*1609.34; %total distance cart is to travel in meters
+% dh = dist*sind(theta); %vertical component of total distance for given slope
+% KE = 1/2.*m.*(vf^2-vo^2); %kinetic energy of cart
+% PE = m.*g.*dh; %potential energy of cart
+% Wnet = KE + PE; %net work
+% dx = 3; %meters
+% a = vf^2/(2*dx); %acceleration needed to achieve max speed in dx meters
+% t = vf/a; %time to reach max speed
+% KEdot = KE/t; %power needed to achieve max speed
+% PEdot = m.*g*vfy; %power needed to climb slope
+% dt = dh./vfy; % time it takes to climb slope at max speed in seconds
+% dt_hr = dt./3600; %time it takes to travel distance in hrs
+% losses = 0.75; %estimated losses in percent
+% power_w = (KEdot+PEdot)./losses; %power needed in watts
+% power = power_w.*0.00134102; % power in horsepower
+% add_cap = 20*5; %additional capacity for charging 5 phones
+% capacity = (power_w.*dt_hr)+add_cap; %battery capacity needed in kWh
+% figure
+% plot(m,capacity)
+% title('Total Cart Mass vs. Battery Capacity Needed')
+% xlabel('Total Cart Mass [kg]')
+% ylabel('Battery Capacity Needed [kWh]')
 
 %slope vs battery capacity
 g = 9.81; %gravity in m/s^2
@@ -253,9 +253,9 @@ cart_v = vf_mph*0.44704; %max cart speed in m/s
 mot_speed = cart_v./circ_m.*60; %motor speed in RPM to reach desired vf
 figure
 plot(d,mot_speed)
-title('Wheel Diameter vs. Motor Speed To Obtain 3 MPH')
+title('Wheel Diameter vs. Effective Motor Speed To Obtain 3 MPH')
 xlabel('Wheel Diameter [in]')
-ylabel('Motor Speed [RPM]')
+ylabel('Effective Motor Speed [RPM]')
 
 %Wheel diamter vs gear reduction
 d = [4 6 8 10]; %wheel diameter in inches
@@ -364,6 +364,7 @@ plot(m,coststo(3,:))
 plot(m,coststo(4,:))
 plot(m,coststo(5,:))
 plot(m,coststo(6,:))
+plot([113 113],[0 500],'k-.')
 lgd = legend('\theta = 2.5','\theta = 5','\theta = 7.5','\theta = 10','\theta = 12.5','\theta = 15');
 lgd.Location = 'northwest';
 title('Total Cart Mass vs. Total Battery Cost')
@@ -379,7 +380,7 @@ for i = 1:length(m)
     vf_mph = 3; % final velocity in mph
     vo = vo_mph*0.44704; %initial velocity in m/s
     vf = vf_mph*0.44704; %final velocity in m/s
-    theta = 1:0.1:20; %max slope angle
+    theta = 1:0.1:15; %max slope angle
     vfy = vf.*sind(theta); %vertical component of velocity
     dist_mi = 5; %total distance cart is to travel in miles
     dist = dist_mi*1609.34; %total distance cart is to travel in meters
@@ -417,13 +418,13 @@ end
 
 figure
 hold on
-plot(theta,capsto(1,:))
-plot(theta,capsto(2,:))
-plot(theta,capsto(3,:))
-plot(theta,capsto(4,:))
-plot([7.5 7.5],[0 2500],'k-.')
+plot(theta,coststo(1,:))
+plot(theta,coststo(2,:))
+plot(theta,coststo(3,:))
+plot(theta,coststo(4,:))
+plot([7.5 7.5],[0 500],'k-.')
 lgd = legend('Mass = 50 kg','Mass = 100 kg','Mass = 150 kg','Mass = 200 kg');
 lgd.Location = 'northwest';
-title('Path Slope vs. Battery Capacity Needed')
+title('Path Slope vs. Total Battery Cost')
 xlabel('Path slope [deg]')
-ylabel('Battery Capacity Needed [kWh]')
+ylabel('Total Battery Cost [$]')
