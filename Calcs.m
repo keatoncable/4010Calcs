@@ -105,7 +105,7 @@ power_w = (KEdot+PEdot)./losses; %power needed in watts
 power = power_w.*0.00134102; % power in horsepower
 
 %% Force Analysis
-
+%Does this push properly
 
 %% Motor Calculations
 %voltage
