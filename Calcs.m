@@ -108,31 +108,44 @@ ylabel('Battery Capacity Needed [kWh]')
 
 %cart weight vs power required
 g = 9.81; %gravity in m/s^2
-m = 50:1:200; % kg, mass of cart fully loaded
-vo_mph = 0; %initial velocity
-vf_mph = 3; % final velocity in mph
-vo = vo_mph*0.44704; %initial velocity in m/s
-vf = vf_mph*0.44704; %final velocity in m/s
-theta = 7.5; %max slope angle
-vfy = vf*sind(theta); %vertical component of velocity
-dist_mi = 5; %total distance cart is to travel in miles
-dist = dist_mi*1609.34; %total distance cart is to travel in meters
-dh = dist*sind(theta); %vertical component of total distance for given slope
-KE = 1/2.*m.*(vf^2-vo^2); %kinetic energy of cart
-PE = m.*g.*dh; %potential energy of cart
-Wnet = KE + PE; %net work
-dx = 3; %meters
-a = vf^2/(2*dx); %acceleration needed to achieve max speed in dx meters
-t = vf/a; %time to reach max speed
-KEdot = KE/t; %power needed to achieve max speed
-PEdot = m.*g*vfy; %power needed to climb slope
-dt = dh/vfy; % time it takes to climb slope at max speed in seconds
-dt_hr = dt/3600; %time it takes to travel distance in hrs
-losses = 0.75; %estimated losses in percent
-power_w = (KEdot+PEdot)./losses; %power needed in watts
-power = power_w.*0.00134102; % power in horsepower
+theta = [2.5 5 7.5 10 12.5 15]; %max slope angle
+psto = [];
+for i = 1:length(theta)
+    m = 50:1:200; % kg, mass of cart fully loaded
+    vo_mph = 0; %initial velocity
+    vf_mph = 3; % final velocity in mph
+    vo = vo_mph*0.44704; %initial velocity in m/s
+    vf = vf_mph*0.44704; %final velocity in m/s
+    %theta = 7.5; %max slope angle
+    vfy = vf*sind(theta(i)); %vertical component of velocity
+    dist_mi = 5; %total distance cart is to travel in miles
+    dist = dist_mi*1609.34; %total distance cart is to travel in meters
+    dh = dist*sind(theta(i)); %vertical component of total distance for given slope
+    KE = 1/2.*m.*(vf^2-vo^2); %kinetic energy of cart
+    PE = m.*g.*dh; %potential energy of cart
+    Wnet = KE + PE; %net work
+    dx = 3; %meters
+    a = vf^2/(2*dx); %acceleration needed to achieve max speed in dx meters
+    t = vf/a; %time to reach max speed
+    KEdot = KE/t; %power needed to achieve max speed
+    PEdot = m.*g*vfy; %power needed to climb slope
+    dt = dh/vfy; % time it takes to climb slope at max speed in seconds
+    dt_hr = dt/3600; %time it takes to travel distance in hrs
+    losses = 0.75; %estimated losses in percent
+    power_w = (KEdot+PEdot)./losses; %power needed in watts
+    power = power_w.*0.00134102; % power in horsepower
+    psto = [psto ; power_w]; %storing power vectors on each iteration
+end
+
 figure
-plot(m,power_w)
+hold on
+plot(m,psto(1,:))
+plot(m,psto(2,:))
+plot(m,psto(3,:))
+plot(m,psto(4,:))
+plot(m,psto(5,:))
+lgd = legend('\theta = 2.5','\theta = 5','\theta = 7.5','\theta = 10','\theta = 12.5','\theta = 15');
+lgd.Location = 'northwest';
 title('Total Cart Mass vs. Power Required')
 xlabel('Total Cart Mass [kg]')
 ylabel('Power Needed [W]')
