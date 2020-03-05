@@ -34,6 +34,8 @@ losses = 0.75; %estimated losses in percent
 power_w = (KEdot+PEdot)/losses; %power needed in watts
 power = power_w*0.00134102; % power in horsepower
 
+%% Force Analysis
+
 %% Motor Calculations
 %voltage
 %current
@@ -55,6 +57,8 @@ v_batt = 3.6; %battery voltage per cell
 cap_batt = 4.2; %battery capacity in Ah
 req_Ah = capacity/v_motor; %total battery Ah needed
 parallel = ceil(req_Ah/cap_batt); %number of cells needed for desired Ah 
+curr = 14.5; % max discharge current per cell
+max_current = curr*parallel; %max battery pack discharge
 series = ceil(v_motor/v_batt); %number of cells needed for desired motor voltage
 num_cells = parallel*series; %number of battery cells needed
 batt_weight = 70/1000; %battery weight in kg
@@ -66,6 +70,7 @@ tot_cost = num_cells*batt_cost; %total battery cost
 
 %% Speed vs Power
 
+<<<<<<< HEAD
 clear
 clc
 close all
@@ -141,6 +146,8 @@ tot_cost = num_cells.*batt_cost; %total battery cost
 
 %% Speed vs Power
 
+=======
+>>>>>>> 228db80e889ad294fdef7d06f87803399a9a3934
 %% Distance Weight Price
 mwsto2 = [];
 m = 1:1:150;
