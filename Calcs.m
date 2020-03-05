@@ -236,6 +236,7 @@ plot(theta,capsto(1,:))
 plot(theta,capsto(2,:))
 plot(theta,capsto(3,:))
 plot(theta,capsto(4,:))
+plot([7.5 7.5],[0 2500],'-.')
 lgd = legend('Mass = 50 kg','Mass = 100 kg','Mass = 150 kg','Mass = 200 kg');
 lgd.Location = 'northwest';
 title('Path Slope vs. Battery Capacity Needed')
