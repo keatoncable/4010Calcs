@@ -4,12 +4,12 @@ close all
 
 %% Constant Initialization
 g = 9.81; %gravity in m/s^2
-m = 136; % kg, mass of cart fully loaded
+m = 113; % kg, mass of cart fully loaded
 vo_mph = 0; %initial velocity
 vf_mph = 3; % final velocity in mph
 vo = vo_mph*0.44704; %initial velocity in m/s
 vf = vf_mph*0.44704; %final velocity in m/s
-theta = 15; %max slope angle
+theta = 7.5; %max slope angle
 vfy = vf*sind(theta); %vertical component of velocity
 dist_mi = 5; %total distance cart is to travel in miles
 dist = dist_mi*1609.34; %total distance cart is to travel in meters
