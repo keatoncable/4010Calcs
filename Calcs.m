@@ -235,7 +235,16 @@ for i = 1:length(mot_speed)
 end
 
 figure
-plot(d,grstore(1,:),d,grstore(2,:),d,grstore(3,:),d,grstore(4,:))
+hold on
+plot(speed,grstore(1,:))
+plot(speed,grstore(2,:))
+plot(speed,grstore(3,:))
+plot(speed,grstore(4,:))
+lgd = legend('D = 4 in.','D = 6 in.','D = 8 in.','D = 10 in.');
+lgd.Location = 'northwest';
+title('Motor Speed vs. Gear Reduction To Obtain 3 MPH')
+xlabel('Motor Speed [RPM]')
+ylabel('Gear Reduction [ ]')
 
 %battery capacity vs battery cost
 

@@ -235,7 +235,15 @@ for i = 1:length(mot_speed)
 end
 
 figure
-plot(d,
+hold on
+plot(speed,grstore(1,:))
+plot(speed,grstore(2,:))
+plot(speed,grstore(3,:))
+plot(speed,grstore(4,:))
+legend('D = 4 in.','D = 6 in.','D = 8 in.','D = 10 in.')
+title('Wheel Diameter vs. Motor Speed To Obtain 3 MPH')
+xlabel('Wheel Diameter [in]')
+ylabel('Motor Speed [RPM]')
 
 %battery capacity vs battery cost
 
