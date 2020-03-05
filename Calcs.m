@@ -11,7 +11,7 @@ vo = vo_mph*0.44704; %initial velocity in m/s
 vf = vf_mph*0.44704; %final velocity in m/s
 theta = 7.5; %max slope angle
 vfy = vf.*sind(theta); %vertical component of velocity
-dist_mi = 2:0.01:7; %total distance cart is to travel in miles
+dist_mi = 5; %total distance cart is to travel in miles
 dist = dist_mi.*1609.34; %total distance cart is to travel in meters
 dh = dist.*sind(theta); %vertical component of total distance for given slope
 
@@ -31,11 +31,13 @@ dt_hr = dt./3600; %time it takes to travel distance in hrs
 losses = 0.75; %estimated losses in percent
 %rolling resistance
 %motor
-%
 
 %% Power Calculations
 power_w = (KEdot+PEdot)./losses; %power needed in watts
 power = power_w.*0.00134102; % power in horsepower
+
+%% Force Analysis
+
 
 %% Motor Calculations
 %voltage
