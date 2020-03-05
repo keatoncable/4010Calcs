@@ -76,6 +76,7 @@ tot_cost = num_cells*batt_cost; %total battery cost
 %distance vs battery capacity
 g = 9.81; %gravity in m/s^2
 m = [50 100 150 200]; % kg, mass of cart fully loaded
+capsto = []; %initialize vector
 for i = 1:length(m)
     vo_mph = 0; %initial velocity
     vf_mph = 3; % final velocity in mph
@@ -86,14 +87,14 @@ for i = 1:length(m)
     dist_mi = 0.1:0.1:7.5; %total distance cart is to travel in miles
     dist = dist_mi.*1609.34; %total distance cart is to travel in meters
     dh = dist.*sind(theta); %vertical component of total distance for given slope
-    KE = 1/2*m*(vf^2-vo^2); %kinetic energy of cart
-    PE = m*g.*dh; %potential energy of cart
+    KE = 1/2*m(i)*(vf^2-vo^2); %kinetic energy of cart
+    PE = m(i)*g.*dh; %potential energy of cart
     Wnet = KE + PE; %net work
     dx = 3; %meters
     a = vf^2/(2*dx); %acceleration needed to achieve max speed in dx meters
     t = vf/a; %time to reach max speed
     KEdot = KE/t; %power needed to achieve max speed
-    PEdot = m*g*vfy; %power needed to climb slope
+    PEdot = m(i)*g*vfy; %power needed to climb slope
     dt = dh./vfy; % time it takes to climb slope at max speed in seconds
     dt_hr = dt./3600; %time it takes to travel distance in hrs
     losses = 0.75; %estimated losses in percent
@@ -101,9 +102,18 @@ for i = 1:length(m)
     power = power_w.*0.00134102; % power in horsepower
     add_cap = 20*5; %additional capacity for charging 5 phones
     capacity = (power_w*dt_hr)+add_cap; %battery capacity needed in kWh
+    capsto = [capsto ; capacity]; %storing capacity on each iteration
 end
+
 figure
-plot(dist_mi,capacity)
+hold on
+plot(dist_mi,capsto(1,:))
+plot(dist_mi,capsto(2,:))
+plot(dist_mi,capsto(3,:))
+plot(dist_mi,capsto(4,:))
+plot([5 5],[0 1400],'-.')
+lgd = legend('Mass = 50 kg','Mass = 100 kg','Mass = 150 kg','Mass = 200 kg');
+lgd.Location = 'northwest';
 title('Cart Distance Rating vs. Battery Capacity Needed')
 xlabel('Distance Rating [miles]')
 ylabel('Battery Capacity Needed [kWh]')
@@ -146,6 +156,8 @@ plot(m,psto(2,:))
 plot(m,psto(3,:))
 plot(m,psto(4,:))
 plot(m,psto(5,:))
+plot(m,psto(6,:))
+plot([113 113],[0 1000],'-.')
 lgd = legend('\theta = 2.5','\theta = 5','\theta = 7.5','\theta = 10','\theta = 12.5','\theta = 15');
 lgd.Location = 'northwest';
 title('Total Cart Mass vs. Power Required')
