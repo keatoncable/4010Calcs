@@ -428,3 +428,81 @@ lgd.Location = 'northwest';
 title('Path Slope vs. Total Battery Cost')
 xlabel('Path slope [deg]')
 ylabel('Total Battery Cost [$]')
+
+%% Battery Pack Dimensions - Capacity Change
+capacity = 500:250:1250; %battery capacity needed in kWh
+wsto = [];
+hsto = [];
+for i = 1:length(capacity)
+    v_motor = 24; %motor voltage
+    v_batt = 3.6; %battery voltage per cell
+    cap_batt = 5; %battery capacity in Ah
+    req_Ah = capacity(i)/v_motor; %total battery Ah needed
+    parallel = ceil(req_Ah/cap_batt); %number of cells needed for desired Ah
+    curr = 14.5; % max discharge current per cell
+    max_current = curr.*parallel; %max battery pack discharge
+    series = ceil(v_motor/v_batt); %number of cells needed for desired motor voltage
+    num_cells = parallel.*series; %number of battery cells needed
+    batt_weight = 70/1000; %battery weight in kg
+    tot_weight = num_cells*batt_weight; %total battery weight
+    batt_cost = 4.15; %battery cell cost in dollars
+    tot_cost = num_cells*batt_cost; %total battery cost
+    width = 21.5/1000; %effective cell width (diameter)
+    height = 71/1000; %effective cell height
+    pack_width = series*width; %estimated pack width
+    pack_height = parallel*height;
+    wsto = [wsto ; -pack_width/2 pack_width/2];
+    hsto = [hsto ; -pack_height/2 pack_height/2];
+end
+
+figure
+hold on
+plot([wsto(1,1) wsto(1,1)],[hsto(1,1) hsto(1,2)],'k-',[wsto(1,1) wsto(1,2)],[hsto(1,2) hsto(1,2)],'k-',[wsto(1,2) wsto(1,2)],[hsto(1,2) hsto(1,1)],'k-',[wsto(1,2) wsto(1,1)],[hsto(1,1) hsto(1,1)],'k-')
+plot([wsto(2,1) wsto(2,1)],[hsto(2,1) hsto(2,2)],'b-',[wsto(2,1) wsto(2,2)],[hsto(2,2) hsto(2,2)],'b-',[wsto(2,2) wsto(2,2)],[hsto(2,2) hsto(2,1)],'b-',[wsto(2,2) wsto(2,1)],[hsto(2,1) hsto(2,1)],'b-')
+plot([wsto(3,1) wsto(3,1)],[hsto(3,1) hsto(3,2)],'g-',[wsto(3,1) wsto(3,2)],[hsto(3,2) hsto(3,2)],'g-',[wsto(3,2) wsto(3,2)],[hsto(3,2) hsto(3,1)],'g-',[wsto(3,2) wsto(3,1)],[hsto(3,1) hsto(3,1)],'g-')
+plot([wsto(4,1) wsto(4,1)],[hsto(4,1) hsto(4,2)],'r-',[wsto(4,1) wsto(4,2)],[hsto(4,2) hsto(4,2)],'r-',[wsto(4,2) wsto(4,2)],[hsto(4,2) hsto(4,1)],'r-',[wsto(4,2) wsto(4,1)],[hsto(4,1) hsto(4,1)],'r-')
+lgd = legend('Cap. = 500 Kwh','Cap. = 750 Kwh','Cap. = 1000 Kwh','Cap. = 1250 Kwh');
+lgd.Location = 'northwest';
+title('Representative Battery Pack Dimensions')
+xlabel('Battery Pack Width Relative To Center [m]')
+ylabel('Battery Pack Height Relative To Center [m]')
+xlim([-.4 0.4]) 
+
+%% Battery Pack Dimensions - Voltage Change
+v_motor = 12:12:48; %motor voltage
+wsto = [];
+hsto = [];
+for i = 1:length(v_motor)
+    v_batt = 3.6; %battery voltage per cell
+    cap_batt = 5; %battery capacity in Ah
+    capacity = 750; %battery capacity needed in kWh
+    req_Ah = capacity/v_motor(i); %total battery Ah needed
+    parallel = ceil(req_Ah/cap_batt); %number of cells needed for desired Ah
+    curr = 14.5; % max discharge current per cell
+    max_current = curr.*parallel; %max battery pack discharge
+    series = ceil(v_motor(i)/v_batt); %number of cells needed for desired motor voltage
+    num_cells = parallel.*series; %number of battery cells needed
+    batt_weight = 70/1000; %battery weight in kg
+    tot_weight = num_cells*batt_weight; %total battery weight
+    batt_cost = 4.15; %battery cell cost in dollars
+    tot_cost = num_cells*batt_cost; %total battery cost
+    width = 21.5/1000; %effective cell width (diameter)
+    height = 71/1000; %effective cell height
+    pack_width = series*width; %estimated pack width
+    pack_height = parallel*height;
+    wsto = [wsto ; -pack_width/2 pack_width/2];
+    hsto = [hsto ; -pack_height/2 pack_height/2];
+end
+
+figure
+hold on
+plot([wsto(1,1) wsto(1,1)],[hsto(1,1) hsto(1,2)],'k-',[wsto(1,1) wsto(1,2)],[hsto(1,2) hsto(1,2)],'k-',[wsto(1,2) wsto(1,2)],[hsto(1,2) hsto(1,1)],'k-',[wsto(1,2) wsto(1,1)],[hsto(1,1) hsto(1,1)],'k-')
+plot([wsto(2,1) wsto(2,1)],[hsto(2,1) hsto(2,2)],'b-',[wsto(2,1) wsto(2,2)],[hsto(2,2) hsto(2,2)],'b-',[wsto(2,2) wsto(2,2)],[hsto(2,2) hsto(2,1)],'b-',[wsto(2,2) wsto(2,1)],[hsto(2,1) hsto(2,1)],'b-')
+plot([wsto(3,1) wsto(3,1)],[hsto(3,1) hsto(3,2)],'g-',[wsto(3,1) wsto(3,2)],[hsto(3,2) hsto(3,2)],'g-',[wsto(3,2) wsto(3,2)],[hsto(3,2) hsto(3,1)],'g-',[wsto(3,2) wsto(3,1)],[hsto(3,1) hsto(3,1)],'g-')
+plot([wsto(4,1) wsto(4,1)],[hsto(4,1) hsto(4,2)],'r-',[wsto(4,1) wsto(4,2)],[hsto(4,2) hsto(4,2)],'r-',[wsto(4,2) wsto(4,2)],[hsto(4,2) hsto(4,1)],'r-',[wsto(4,2) wsto(4,1)],[hsto(4,1) hsto(4,1)],'r-')
+lgd = legend('Voltage = 12V','Voltage = 24V','Voltage = 36V','Voltage = 48V');
+lgd.Location = 'northwest';
+title('Representative Battery Pack Dimensions')
+xlabel('Battery Pack Width Relative To Center [m]')
+ylabel('Battery Pack Height Relative To Center [m]')
+xlim([-.4 0.4]) 
