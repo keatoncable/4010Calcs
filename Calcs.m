@@ -505,4 +505,4 @@ lgd.Location = 'northwest';
 title('Representative Battery Pack Dimensions')
 xlabel('Battery Pack Width Relative To Center [m]')
 ylabel('Battery Pack Height Relative To Center [m]')
-xlim([-.4 0.4]) 
+xlim([-.5 0.5]) 
